@@ -53,48 +53,51 @@ class Design {
   }
 
   static AppBar standartAppBar(BuildContext context) {
-    return AppBar(title: const Text(''), actions: <Widget>[
-      TextButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, '/shelf');
-        },
-        child: Text(
-          "Shelves",
-          style: Design.smallLetterYellow(),
-        ),
-      ),
-      TextButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, '/booklist');
-        },
-        child: Text(
-          "Books",
-          style: Design.smallLetterYellow(),
-        ),
-      ),
-      TextButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, '/login');
-        },
-        child: Text(
-          "Login",
-          style: Design.smallLetterYellow(),
-        ),
-      ),
-      TextButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, '/bookdetails');
-        },
-        child: Text(
-          "details",
-          style: Design.smallLetterYellow(),
-        ),
-      ),
-      IconButton(
-          icon: const Icon(Icons.person),
-          onPressed: () {
-            //TODO add settings page (:
-          })
-    ]);
+    return AppBar(
+        title: const Text(''),
+        backgroundColor: Colors.red,
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/shelf');
+            },
+            child: Text(
+              "Shelves",
+              style: Design.smallLetterYellow(),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/booklist');
+            },
+            child: Text(
+              "Books",
+              style: Design.smallLetterYellow(),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: Text(
+              "Login",
+              style: Design.smallLetterYellow(),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/bookdetails');
+            },
+            child: Text(
+              "details",
+              style: Design.smallLetterYellow(),
+            ),
+          ),
+          IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                //TODO add settings page (:
+              })
+        ]);
   }
 }

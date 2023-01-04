@@ -26,6 +26,7 @@ class Book {
   String shortDescribtion;
   String longDescription;
   String status;
+  String location;
   DateTime publishedDate;
   List<dynamic> authors;
   List<dynamic> categories;
@@ -40,6 +41,7 @@ class Book {
       this.shortDescribtion,
       this.longDescription,
       this.status,
+      this.location,
       this.publishedDate,
       this.authors,
       this.categories,
@@ -69,6 +71,10 @@ class Book {
   set setId(int id) => this.id = id;
 
   get getPagecount => this.pagecount;
+
+  String get getLocation => this.location;
+
+  set setLocation(String location) => this.location = location;
 
   set setPagecount(pagecount) => this.pagecount = pagecount;
 
@@ -113,4 +119,5 @@ class Book {
   bool get getAvailable => this.available;
 
   set setAvailable(bool available) => this.available = available;
+
 }

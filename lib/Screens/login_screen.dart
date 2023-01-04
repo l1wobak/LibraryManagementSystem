@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                 ),
                 autocorrect: false,
                 maxLength: 16,
-                maxLengthEnforced: true,
+                
               ),
               SizedBox(
                 height: 10.0,
@@ -76,7 +76,7 @@ class _LoginState extends State<Login> {
                 ),
                 autocorrect: false,
                 maxLength: 32,
-                maxLengthEnforced: true,
+                
                 obscureText: true,
                 obscuringCharacter: '*',
               ),
@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
                 children: [
                   Expanded(
                     flex: 4,
-                    child: RaisedButton(
+                    child: MaterialButton(
                       elevation: 100.0,
                       padding: EdgeInsets.all(14.0),
                       color: Colors.blue[700],

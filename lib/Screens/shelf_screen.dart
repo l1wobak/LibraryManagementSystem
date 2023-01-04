@@ -15,11 +15,14 @@ class _ShelfState extends State<Shelf> {
         appBar: Design.standartAppBar(context),
         body: Center(
             child: Container(
-          child: FlatButton(
+          child: MaterialButton(
             child: Text("Test"),
             onPressed: () {
-              List<Book> list = Methods.getBooklist();
-              print(list[1].getTitle);
+              Methods m = new Methods();
+              List<Book> list = m.getBooklist();
+              print(list[1].location);
+              print(list[230].location);
+              print(list[430].location);
             },
           ),
         )));

@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:library_management_system/Objects/book.dart';
 
 class Methods {
-  static List<Book> getBooklist() {
-    List<Book> booklist = new List<Book>();
+  List<Book> booklist;
+
+  List<Book> getBooklist() {
+    if (booklist == null) generateBooklist();
+    return booklist;
+  }
+
+  void generateBooklist() {
+    booklist = new List<Book>();
     booklist.add(Book.fromJson({
       "_id": 1,
       "title": "Unlocking Android",
@@ -6160,6 +6167,24 @@ class Methods {
       "authors": [],
       "categories": []
     }));
-    return booklist;
+    print(booklist.length);
+    if (booklist[1].location != null) return;
+    String location;
+    int shelf = "a".codeUnitAt(0);
+    //int count = (booklist.length / 26).round();
+    int row = 1, spot = 1;
+    for (int i = 0; i < booklist.length; i++) {
+      location = String.fromCharCode(shelf) + ";$row;$spot";
+      booklist[i].setLocation = location;
+      spot++;
+      if (spot == 6) {
+        spot = 1;
+        row++;
+        if (row == 5) {
+          row = 1;
+          shelf++;
+        }
+      }
+    }
   }
 }

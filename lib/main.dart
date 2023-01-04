@@ -22,5 +22,3 @@ void main() {
     debugShowCheckedModeBanner: false,
   ));
 }
-
-
