@@ -9,6 +9,15 @@ class Methods {
     return booklist;
   }
 
+  List<Book> getTestList() {
+    List<Book> books = getBooklist();
+    List<Book> partList = new List<Book>();
+    for (var i = 0; i < 5; i++) {
+      partList.add(books.elementAt(i));
+    }
+    return partList;
+  }
+
   void generateBooklist() {
     booklist = new List<Book>();
     booklist.add(Book.fromJson({
@@ -6167,13 +6176,15 @@ class Methods {
       "authors": [],
       "categories": []
     }));
-    print(booklist.length);
     if (booklist[1].location != null) return;
     String location;
     int shelf = "a".codeUnitAt(0);
     //int count = (booklist.length / 26).round();
     int row = 1, spot = 1;
     for (int i = 0; i < booklist.length; i++) {
+      if (booklist[i].getThumbnailUrl == null)
+        booklist[i].setThumbnailUrl =
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Empty_book.jpg/1024px-Empty_book.jpg";
       location = String.fromCharCode(shelf) + ";$row;$spot";
       booklist[i].setLocation = location;
       spot++;

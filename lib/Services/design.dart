@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/Screens/booklist_screen.dart';
+import 'package:library_management_system/Screens/login_screen.dart';
+import 'package:library_management_system/Screens/shelf_screen.dart';
 
 class Design {
   static TextStyle smallLetterYellow() {
@@ -52,10 +55,84 @@ class Design {
     );
   }
 
+  static Drawer standartDrawer(BuildContext context) {
+    return Drawer(
+      // Add a ListView to the drawer. This ensures the user can scroll
+      // through the options in the drawer if there isn't enough vertical
+      // space to fit everything.
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Center(
+                child: Text(
+              'Library Management System',
+              style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2.0,
+                  color: Colors.white),
+            )),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('My books'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Booklist()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Shelf()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.login),
+            title: Text('Login / Signup'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.info,
+            ),
+            title: Text(
+              'About',
+            ),
+            onTap: () {
+              return showAboutDialog(
+                context: context,
+                applicationName: 'Library Management System',
+                applicationVersion: '0.1.1',
+                applicationIcon: Icon(
+                  Icons.alarm,
+                  size: 40.0,
+                  color: Colors.lightBlue,
+                ),
+                applicationLegalese:
+                    'App created by Lukas Wobak, Thomas Wobak and Yevhen Makarov',
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   static AppBar standartAppBar(BuildContext context) {
     return AppBar(
         title: const Text(''),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.lightBlue,
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -93,11 +170,6 @@ class Design {
               style: Design.smallLetterYellow(),
             ),
           ),
-          IconButton(
-              icon: const Icon(Icons.person),
-              onPressed: () {
-                //TODO add settings page (:
-              })
         ]);
   }
 }
