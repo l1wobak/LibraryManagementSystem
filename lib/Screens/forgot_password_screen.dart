@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:library_management_system/Services/design.dart';
 
-class Login extends StatefulWidget {
+class ForgotPassword extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
 /// This screen is where the user can enter his username ans password to log in
@@ -12,7 +12,7 @@ class Login extends StatefulWidget {
 /// if it doesnt work he simply gets a popup that the username/password was incorrect
 /// if there is no answer withing 5 seconds then it is concluded that there is no active internet connection
 /// in this case the user is stuck on this screen.
-class _LoginState extends State<Login> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   //using controllers to read the text in the textfields
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -41,43 +41,31 @@ class _LoginState extends State<Login> {
                 height: 20,
               ),
               Text(
-                'Library Management System',
+                'Reset Password',
                 style: Design.mainTitleTextStyleYellow(),
               ),
               SizedBox(
-                height: 45.0,
+                height: 40.0,
               ),
               Text(
-                '$incorrectUsername',
-                style: TextStyle(color: Colors.red[600], fontSize: 16.0),
+                "Please Enter your Email Address. We will send you a code to reset your password",
+                style: Design.normalText(),
               ),
               SizedBox(
-                height: 5.0,
+                height: 20.0,
               ),
               //The Textfield for the username
               TextField(
                 controller: usernameController,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(),
-                  labelText: 'Username',
+                  labelText: 'Email Address',
                 ),
                 autocorrect: false,
               ),
               SizedBox(
                 height: 10.0,
-              ),
-              //the Textfield for the password
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
-                ),
-                autocorrect: false,
-                obscureText: true,
-                obscuringCharacter: '*',
               ),
               SizedBox(
                 height: 25.0,
@@ -96,11 +84,11 @@ class _LoginState extends State<Login> {
                         String username = usernameController.text.trim();
                         String password = passwordController.text;
                         if (username != null && password != null) {
-                          Navigator.pushReplacementNamed(context, '/shelf');
+                          Navigator.pushReplacementNamed(context, '/login');
                         }
                       },
                       child: Text(
-                        'login',
+                        'Send Code',
                         style: TextStyle(
                           fontSize: 24.0,
                           color: Colors.white.withOpacity(0.5),
@@ -110,24 +98,12 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    child: Text("Sign up", style: Design.hyperLinkLetter()),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/forgotpassword');
-                    },
-                    child: Text("Forgot Password?",
-                        style: Design.hyperLinkLetter()),
-                  )
-                ],
-              )
+              TextButton(
+                child: Text("Back to Login", style: Design.hyperLinkLetter()),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+              ),
             ],
           ),
         ),

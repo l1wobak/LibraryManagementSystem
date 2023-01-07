@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:library_management_system/Services/design.dart';
 
-class Login extends StatefulWidget {
+class Signup extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _SignupState createState() => _SignupState();
 }
 
 /// This screen is where the user can enter his username ans password to log in
@@ -12,7 +12,7 @@ class Login extends StatefulWidget {
 /// if it doesnt work he simply gets a popup that the username/password was incorrect
 /// if there is no answer withing 5 seconds then it is concluded that there is no active internet connection
 /// in this case the user is stuck on this screen.
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
   //using controllers to read the text in the textfields
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -37,15 +37,12 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
               Text(
-                'Library Management System',
+                'Create new Account',
                 style: Design.mainTitleTextStyleYellow(),
               ),
               SizedBox(
-                height: 45.0,
+                height: 30.0,
               ),
               Text(
                 '$incorrectUsername',
@@ -56,16 +53,50 @@ class _LoginState extends State<Login> {
               ),
               //The Textfield for the username
               TextField(
-                controller: usernameController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(),
-                  labelText: 'Username',
+                  labelText: 'Firstname',
+                ),
+                autocorrect: false,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
+                  labelText: 'Lastname',
+                ),
+                autocorrect: false,
+              ),
+
+              SizedBox(
+                height: 10.0,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.email),
+                  border: OutlineInputBorder(),
+                  labelText: 'Email Adress',
                 ),
                 autocorrect: false,
               ),
               SizedBox(
                 height: 10.0,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.phone),
+                  border: OutlineInputBorder(),
+                  labelText: 'Phone Number',
+                ),
+                autocorrect: false,
+              ),
+
+              SizedBox(
+                height: 20.0,
               ),
               //the Textfield for the password
               TextField(
@@ -74,6 +105,21 @@ class _LoginState extends State<Login> {
                   prefixIcon: Icon(Icons.lock_outline),
                   border: OutlineInputBorder(),
                   labelText: 'Password',
+                ),
+                autocorrect: false,
+                obscureText: true,
+                obscuringCharacter: '*',
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              //the Textfield for the password
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(),
+                  labelText: 'Confirm Password',
                 ),
                 autocorrect: false,
                 obscureText: true,
@@ -96,11 +142,11 @@ class _LoginState extends State<Login> {
                         String username = usernameController.text.trim();
                         String password = passwordController.text;
                         if (username != null && password != null) {
-                          Navigator.pushReplacementNamed(context, '/shelf');
+                          Navigator.pushReplacementNamed(context, '/login');
                         }
                       },
                       child: Text(
-                        'login',
+                        'Create new Account',
                         style: TextStyle(
                           fontSize: 24.0,
                           color: Colors.white.withOpacity(0.5),
@@ -111,21 +157,15 @@ class _LoginState extends State<Login> {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TextButton(
-                    child: Text("Sign up", style: Design.hyperLinkLetter()),
+                    child:
+                        Text("Back to Login", style: Design.hyperLinkLetter()),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
+                      Navigator.pushReplacementNamed(context, '/login');
                     },
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/forgotpassword');
-                    },
-                    child: Text("Forgot Password?",
-                        style: Design.hyperLinkLetter()),
-                  )
                 ],
               )
             ],

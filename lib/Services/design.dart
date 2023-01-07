@@ -48,6 +48,17 @@ class Design {
     );
   }
 
+  static TextStyle normalText() {
+    return TextStyle(fontSize: 18, color: Colors.black);
+  }
+
+  static TextStyle hyperLinkLetter() {
+    return TextStyle(
+      fontSize: 24,
+      color: Color.fromARGB(255, 22, 144, 214),
+    );
+  }
+
   static TextStyle bigLetters() {
     return TextStyle(
       fontSize: 24.0,
@@ -133,26 +144,45 @@ class Design {
     return AppBar(
         title: const Text(''),
         backgroundColor: Colors.lightBlue,
+        centerTitle: true,
         actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, '/shelf');
-            },
-            child: Text(
-              "Shelves",
-              style: Design.smallLetterYellow(),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/shelf');
+                },
+                child: Text(
+                  "Shelves",
+                  style: Design.smallLetterYellow(),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/booklist');
+                },
+                child: Text(
+                  "Books",
+                  style: Design.smallLetterYellow(),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/bookdetails');
+                },
+                child: Text(
+                  "Bookdetails",
+                  style: Design.smallLetterYellow(),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, '/booklist');
-            },
-            child: Text(
-              "Books",
-              style: Design.smallLetterYellow(),
-            ),
-          ),
-          TextButton(
+          SizedBox(
+            width: 50,
+          )
+
+          /*TextButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/login');
             },
@@ -169,7 +199,7 @@ class Design {
               "details",
               style: Design.smallLetterYellow(),
             ),
-          ),
+          ),*/
         ]);
   }
 }
