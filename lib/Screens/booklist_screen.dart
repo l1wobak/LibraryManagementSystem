@@ -11,18 +11,23 @@ class Booklist extends StatefulWidget {
   _BooklistState createState() => _BooklistState();
 }
 
+Methods methods;
+Map routeData = {};
+
 class _BooklistState extends State<Booklist> {
   @override
   Widget build(BuildContext context) {
-    Methods methods = new Methods();
+    routeData = ModalRoute.of(context).settings.arguments;
+    methods = routeData['methods'];
+
     List<Book> allBooks = methods.getBooklist();
     List<Book> testBooks = methods.getTestList();
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
         new GlobalKey<RefreshIndicatorState>();
 
     return Scaffold(
-      appBar: Design.standartAppBar(context),
-      drawer: Design.standartDrawer(context),
+      appBar: Design.standartAppBar(context, methods),
+      drawer: Design.standartDrawer(context, methods),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _refresh,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:library_management_system/Objects/book.dart';
 
+import '../Objects/user.dart';
+
 class Methods {
   List<Book> booklist;
-
+  List<User> userlist;
+  List<String> shelflist;
+  User currentuser;
   List<Book> getBooklist() {
     if (booklist == null) generateBooklist();
     return booklist;
@@ -16,6 +20,62 @@ class Methods {
       partList.add(books.elementAt(i));
     }
     return partList;
+  }
+
+  User getCurrentUser() {
+    return currentuser;
+  }
+
+  void setCurrentUser(User user) {
+    this.currentuser = user;
+  }
+
+  void removeShelf(String shelf) {
+    if (shelflist == null) generateShelfList();
+    if (shelflist.contains(shelf)) shelflist.remove(shelf);
+  }
+
+  List<User> getUserlist() {
+    if (userlist == null) generateUserList();
+    return userlist;
+  }
+
+  void generateUserList() {
+    userlist = new List<User>();
+    userlist.add(new User("user1", "password1", false, null));
+    userlist.add(new User("user2", "password2", false, null));
+    userlist.add(new User("admin", "admin", true, null));
+  }
+
+  bool checkLogin(String username, String password) {
+    if (userlist == null) generateUserList();
+    for (User user in userlist) {
+      if (user.password == password && user.username == username) {
+        setCurrentUser(user);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void generateShelfList() {
+    shelflist = new List<String>();
+    if (booklist == null) generateBooklist();
+    String shelfOfBook;
+    getBooklist().map((book) {
+      shelfOfBook = book.getLocation.substring(0, 1);
+      if (!shelflist.contains(shelfOfBook)) shelflist.add(shelfOfBook);
+    }).toList();
+  }
+
+  List<String> getShelfList() {
+    if (shelflist == null) generateShelfList();
+    return shelflist;
+  }
+
+  void addShelf(String shelf) {
+    if (shelflist == null) generateShelfList();
+    shelflist.add(shelf);
   }
 
   void generateBooklist() {
