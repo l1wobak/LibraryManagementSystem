@@ -1,128 +1,472 @@
 import 'package:flutter/material.dart';
-import 'package:library_management_system/Objects/book.dart';
+import '../Services/methods.dart';
 
 class ShelfCard extends StatelessWidget {
   final Map<String, int> shelfs3;
   final List<String> urls;
-
-  ShelfCard({this.shelfs3, this.urls});
+  final Methods m;
+  ShelfCard({this.shelfs3, this.urls, this.m});
 
   @override
   Widget build(BuildContext context) {
-    Iterable<String> shelfkeys = shelfs3.keys;
-    String first = shelfkeys.elementAt(0);
-    String second = shelfkeys.elementAt(1);
-    String third = shelfkeys.elementAt(2);
+    if (shelfs3.length == 3) {
+      Iterable<String> shelfkeys = shelfs3.keys;
+      String first = shelfkeys.elementAt(0);
+      String second = shelfkeys.elementAt(1);
+      String third = shelfkeys.elementAt(2);
 
-    return Card(
-      margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushReplacementNamed(context, "/booklist");
-        },
+      return Card(
+        key: key,
+        margin: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 0.0),
+        elevation: 0,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Column(
+              Card(
+                elevation: 10,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "/booklist",
+                        arguments: {'shelf': first, 'methods': m});
+                  },
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image.network(
-                        urls[0],
-                        height: 120,
-                        width: 70,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.network(
+                            urls[0],
+                            height: 120,
+                            width: 70,
+                          ),
+                          Container(
+                            width: 80,
+                            color: Colors.blueAccent,
+                            alignment: Alignment.center,
+                            child: Text("Shelf $first",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          )
+                        ],
                       ),
-                      Container(
-                        width: 80,
-                        color: Colors.blueAccent,
-                        alignment: Alignment.center,
-                        child: Text("Shelf $first",
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.white)),
+                      SizedBox(
+                        width: 30,
+                        child: Column(
+                          children: <Widget>[
+                            RotatedBox(
+                              quarterTurns: 3,
+                              child: Container(
+                                color: Colors.black12,
+                                width: 100,
+                                alignment: Alignment.center,
+                                child: Text("${shelfs3[first]} Books"),
+                              ),
+                            ),
+                            PopupMenuButton(
+                                icon:
+                                    Icon(Icons.arrow_drop_down_circle_outlined),
+                                iconSize: 25,
+                                onSelected: (value) {
+                                  if (value) {
+                                    m.removeShelf(first);
+                                    Navigator.pushReplacementNamed(
+                                        context, '/shelf',
+                                        arguments: {'methods': m});
+                                  }
+                                },
+                                itemBuilder: (BuildContext bc) {
+                                  return const [
+                                    PopupMenuItem(
+                                      child: Text("Delete"),
+                                      value: true,
+                                    ),
+                                  ];
+                                })
+                          ],
+                        ),
                       )
                     ],
                   ),
-                  RotatedBox(
-                    quarterTurns: 3,
-                    child: Container(
-                      color: Colors.black12,
-                      width: 100,
-                      alignment: Alignment.center,
-                      child: Text("${shelfs3[first]} Books"),
-                    ),
-                  )
-                ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Column(
+              Card(
+                elevation: 10,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "/booklist",
+                        arguments: {'shelf': second, 'methods': m});
+                  },
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image.network(
-                        urls[1],
-                        height: 120,
-                        width: 70,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.network(
+                            urls[1],
+                            height: 120,
+                            width: 70,
+                          ),
+                          Container(
+                            width: 80,
+                            color: Colors.blueAccent,
+                            alignment: Alignment.center,
+                            child: Text("Shelf $second",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          )
+                        ],
                       ),
-                      Container(
-                        width: 80,
-                        color: Colors.blueAccent,
-                        alignment: Alignment.center,
-                        child: Text("Shelf $second",
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.white)),
+                      SizedBox(
+                        width: 30,
+                        child: Column(
+                          children: <Widget>[
+                            RotatedBox(
+                              quarterTurns: 3,
+                              child: Container(
+                                color: Colors.black12,
+                                width: 100,
+                                alignment: Alignment.center,
+                                child: Text("${shelfs3[second]} Books"),
+                              ),
+                            ),
+                            PopupMenuButton(
+                                icon:
+                                    Icon(Icons.arrow_drop_down_circle_outlined),
+                                iconSize: 25,
+                                onSelected: (value) {
+                                  if (value) {
+                                    m.removeShelf(second);
+                                    Navigator.pushReplacementNamed(
+                                        context, '/shelf',
+                                        arguments: {'methods': m});
+                                  }
+                                },
+                                itemBuilder: (BuildContext bc) {
+                                  return const [
+                                    PopupMenuItem(
+                                      child: Text("Delete"),
+                                      value: true,
+                                    ),
+                                  ];
+                                })
+                          ],
+                        ),
                       )
                     ],
                   ),
-                  RotatedBox(
-                    quarterTurns: 3,
-                    child: Container(
-                      color: Colors.black12,
-                      width: 100,
-                      alignment: Alignment.center,
-                      child: Text("${shelfs3[second]} Books"),
-                    ),
-                  )
-                ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Column(
+              Card(
+                elevation: 10,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "/booklist",
+                        arguments: {'shelf': third, 'methods': m});
+                  },
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image.network(
-                        urls[2],
-                        height: 120,
-                        width: 70,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.network(
+                            urls[2],
+                            height: 120,
+                            width: 70,
+                          ),
+                          Container(
+                            width: 80,
+                            color: Colors.blueAccent,
+                            alignment: Alignment.center,
+                            child: Text("Shelf $third",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          )
+                        ],
                       ),
-                      Container(
-                        width: 80,
-                        color: Colors.blueAccent,
-                        alignment: Alignment.center,
-                        child: Text("Shelf $third",
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.white)),
+                      SizedBox(
+                        width: 30,
+                        child: Column(
+                          children: <Widget>[
+                            RotatedBox(
+                              quarterTurns: 3,
+                              child: Container(
+                                color: Colors.black12,
+                                width: 100,
+                                alignment: Alignment.center,
+                                child: Text("${shelfs3[third]} Books"),
+                              ),
+                            ),
+                            PopupMenuButton(
+                                icon:
+                                    Icon(Icons.arrow_drop_down_circle_outlined),
+                                iconSize: 25,
+                                onSelected: (value) {
+                                  if (value) {
+                                    m.removeShelf(third);
+                                    Navigator.pushReplacementNamed(
+                                        context, '/shelf',
+                                        arguments: {'methods': m});
+                                  }
+                                },
+                                itemBuilder: (BuildContext bc) {
+                                  return const [
+                                    PopupMenuItem(
+                                      child: Text("Delete"),
+                                      value: true,
+                                    ),
+                                  ];
+                                })
+                          ],
+                        ),
                       )
                     ],
                   ),
-                  RotatedBox(
-                    quarterTurns: 3,
-                    child: Container(
-                      color: Colors.black12,
-                      width: 100,
-                      alignment: Alignment.center,
-                      child: Text("${shelfs3[third]} Books"),
-                    ),
-                  )
-                ],
+                ),
               ),
             ],
           ),
+        ),
+      );
+    }
+    if (shelfs3.length == 2) {
+      Iterable<String> shelfkeys = shelfs3.keys;
+      String first = shelfkeys.elementAt(0);
+      String second = shelfkeys.elementAt(1);
+
+      return Card(
+        margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+        elevation: 0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Card(
+                elevation: 10,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "/booklist",
+                        arguments: {'shelf': first, 'methods': m});
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.network(
+                            urls[0],
+                            height: 120,
+                            width: 70,
+                          ),
+                          Container(
+                            width: 80,
+                            color: Colors.blueAccent,
+                            alignment: Alignment.center,
+                            child: Text("Shelf $first",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 30,
+                        child: Column(
+                          children: <Widget>[
+                            RotatedBox(
+                              quarterTurns: 3,
+                              child: Container(
+                                color: Colors.black12,
+                                width: 100,
+                                alignment: Alignment.center,
+                                child: Text("${shelfs3[first]} Books"),
+                              ),
+                            ),
+                            PopupMenuButton(
+                                icon:
+                                    Icon(Icons.arrow_drop_down_circle_outlined),
+                                iconSize: 25,
+                                onSelected: (value) {
+                                  if (value) {
+                                    m.removeShelf(first);
+                                    Navigator.pushReplacementNamed(
+                                        context, '/shelf',
+                                        arguments: {'methods': m});
+                                  }
+                                },
+                                itemBuilder: (BuildContext bc) {
+                                  return const [
+                                    PopupMenuItem(
+                                      child: Text("Delete"),
+                                      value: true,
+                                    ),
+                                  ];
+                                })
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                elevation: 10,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "/booklist",
+                        arguments: {'shelf': second, 'methods': m});
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.network(
+                            urls[1],
+                            height: 120,
+                            width: 70,
+                          ),
+                          Container(
+                            width: 80,
+                            color: Colors.blueAccent,
+                            alignment: Alignment.center,
+                            child: Text("Shelf $second",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 30,
+                        child: Column(
+                          children: <Widget>[
+                            RotatedBox(
+                              quarterTurns: 3,
+                              child: Container(
+                                color: Colors.black12,
+                                width: 100,
+                                alignment: Alignment.center,
+                                child: Text("${shelfs3[second]} Books"),
+                              ),
+                            ),
+                            PopupMenuButton(
+                                icon:
+                                    Icon(Icons.arrow_drop_down_circle_outlined),
+                                iconSize: 25,
+                                onSelected: (value) {
+                                  if (value) {
+                                    m.removeShelf(second);
+                                    Navigator.pushReplacementNamed(
+                                        context, '/shelf',
+                                        arguments: {'methods': m});
+                                  }
+                                },
+                                itemBuilder: (BuildContext bc) {
+                                  return const [
+                                    PopupMenuItem(
+                                      child: Text("Delete"),
+                                      value: true,
+                                    ),
+                                  ];
+                                })
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Iterable<String> shelfkeys = shelfs3.keys;
+    String first = shelfkeys.elementAt(0);
+
+    return Card(
+      margin: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Card(
+              elevation: 10,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, "/booklist",
+                      arguments: {'shelf': first, 'methods': m});
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.network(
+                          urls[0],
+                          height: 120,
+                          width: 70,
+                        ),
+                        Container(
+                          width: 80,
+                          color: Colors.blueAccent,
+                          alignment: Alignment.center,
+                          child: Text("Shelf $first",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white)),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 30,
+                      child: Column(
+                        children: <Widget>[
+                          RotatedBox(
+                            quarterTurns: 3,
+                            child: Container(
+                              color: Colors.black12,
+                              width: 100,
+                              alignment: Alignment.center,
+                              child: Text("${shelfs3[first]} Books"),
+                            ),
+                          ),
+                          PopupMenuButton(
+                              icon: Icon(Icons.arrow_drop_down_circle_outlined),
+                              iconSize: 25,
+                              onSelected: (value) {
+                                if (value) {
+                                  m.removeShelf(first);
+                                  Navigator.pushReplacementNamed(
+                                      context, '/shelf',
+                                      arguments: {'methods': m});
+                                }
+                              },
+                              itemBuilder: (BuildContext bc) {
+                                return const [
+                                  PopupMenuItem(
+                                    child: Text("Delete"),
+                                    value: true,
+                                  ),
+                                ];
+                              })
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

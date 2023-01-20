@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/Services/barcodeScanner.dart';
 import 'Screens/forgot_password_screen.dart';
 import 'Screens/book_details.dart';
 import 'Screens/booklist_screen.dart';
@@ -13,13 +14,14 @@ void main() {
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
-      '/': (context) => Login(),
+      '/': (context) => Shelf(),
       '/shelf': (context) => Shelf(),
       '/booklist': (context) => Booklist(),
       '/login': (context) => Login(),
       '/signup': (context) => Signup(),
       '/forgotpassword': (context) => ForgotPassword(),
       '/bookdetails': (context) => BookDetails(),
+      '/barcodescanner': (context) => BarcodeScanner(),
       '0': (context) => Shelf(),
       '1': (context) => Booklist(),
     },

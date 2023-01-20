@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_management_system/Services/design.dart';
 
+import '../Services/methods.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -27,8 +29,12 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
+  Map routeData = {};
+  Methods m;
   @override
   Widget build(BuildContext context) {
+    routeData = ModalRoute.of(context).settings.arguments;
+    m = routeData['methods'];
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -52,7 +58,7 @@ class _LoginState extends State<Login> {
                 style: TextStyle(color: Colors.red[600], fontSize: 16.0),
               ),
               SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               //The Textfield for the username
               TextField(
@@ -96,7 +102,16 @@ class _LoginState extends State<Login> {
                         String username = usernameController.text.trim();
                         String password = passwordController.text;
                         if (username != null && password != null) {
-                          Navigator.pushReplacementNamed(context, '/shelf');
+                          if (m.checkLogin(username, password)) {
+                            Navigator.pushReplacementNamed(context, '/shelf',
+                                arguments: {'methods': m});
+                            return;
+                          }
+
+                          setState(() {
+                            incorrectUsername =
+                                "Incorrect Username or Password";
+                          });
                         }
                       },
                       child: Text(
@@ -110,6 +125,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

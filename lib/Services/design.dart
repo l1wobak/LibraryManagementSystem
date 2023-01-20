@@ -1,7 +1,13 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_management_system/Screens/booklist_screen.dart';
 import 'package:library_management_system/Screens/login_screen.dart';
 import 'package:library_management_system/Screens/shelf_screen.dart';
+import 'package:flutter_qr_bar_scanner/flutter_qr_bar_scanner.dart';
+import 'package:library_management_system/Services/barcodeScanner.dart';
+
+import 'methods.dart';
 
 class Design {
   static TextStyle smallLetterYellow() {
@@ -66,7 +72,13 @@ class Design {
     );
   }
 
-  static Drawer standartDrawer(BuildContext context) {
+  static Future<String> tryScan() async {
+    String barcodeScanRes;
+  }
+
+  static Drawer standartDrawer(BuildContext context, Methods m) {
+    String logintext =
+        (m.getCurrentUser() != null) ? "Logout" : "Login / Signup";
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
@@ -93,24 +105,31 @@ class Design {
             leading: Icon(Icons.home),
             title: Text('My books'),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Booklist()));
+              Navigator.pushNamed(context, '/booklist',
+                  arguments: {'methods': m});
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Scan Barcode'),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BarcodeScanner()));
             },
           ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Shelf()));
+              Navigator.pushNamed(context, '/settings');
             },
           ),
           ListTile(
             leading: Icon(Icons.login),
-            title: Text('Login / Signup'),
+            title: Text(logintext),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+              Navigator.pushReplacementNamed(context, '/login',
+                  arguments: {'methods': m});
             },
           ),
           ListTile(
@@ -140,7 +159,7 @@ class Design {
     );
   }
 
-  static AppBar standartAppBar(BuildContext context) {
+  static AppBar standartAppBar(BuildContext context, Methods m) {
     return AppBar(
         title: const Text(''),
         backgroundColor: Colors.lightBlue,
@@ -151,23 +170,28 @@ class Design {
             children: <Widget>[
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/shelf');
+                  Navigator.pushNamed(context, '/shelf',
+                      arguments: {'methods': m});
                 },
                 child: Text(
                   "Shelves",
                   style: Design.smallLetterYellow(),
                 ),
               ),
+              SizedBox(
+                width: 20,
+              ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/booklist');
+                  Navigator.pushNamed(context, '/booklist',
+                      arguments: {'methods': m});
                 },
                 child: Text(
                   "Books",
                   style: Design.smallLetterYellow(),
                 ),
               ),
-              TextButton(
+              /*TextButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/bookdetails');
                 },
@@ -175,11 +199,11 @@ class Design {
                   "Bookdetails",
                   style: Design.smallLetterYellow(),
                 ),
-              ),
+              ),*/
             ],
           ),
           SizedBox(
-            width: 50,
+            width: 120,
           )
 
           /*TextButton(
