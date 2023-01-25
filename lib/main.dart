@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/Screens/all_users_list.dart';
 import 'package:library_management_system/Services/barcodeScanner.dart';
 import 'Screens/forgot_password_screen.dart';
 import 'Screens/book_details.dart';
@@ -22,6 +23,7 @@ void main() {
       '/forgotpassword': (context) => ForgotPassword(),
       '/bookdetails': (context) => BookDetails(),
       '/barcodescanner': (context) => BarcodeScanner(),
+      '/alluserlist': (context) => AllUserList(),
       '0': (context) => Shelf(),
       '1': (context) => Booklist(),
     },

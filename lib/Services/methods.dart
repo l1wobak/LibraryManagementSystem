@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_management_system/Objects/book.dart';
+import 'package:library_management_system/Objects/bookCard.dart';
 
 import '../Objects/user.dart';
 
@@ -11,15 +12,6 @@ class Methods {
   List<Book> getBooklist() {
     if (booklist == null) generateBooklist();
     return booklist;
-  }
-
-  List<Book> getTestList() {
-    List<Book> books = getBooklist();
-    List<Book> partList = new List<Book>();
-    for (var i = 0; i < 5; i++) {
-      partList.add(books.elementAt(i));
-    }
-    return partList;
   }
 
   User getCurrentUser() {
@@ -40,11 +32,54 @@ class Methods {
     return userlist;
   }
 
+  List<String> getAllUsernames() {
+    List<String> usernames = [];
+    List<User> allUsers = getUserlist();
+    for (var i = 0; i < allUsers.length; i++) {
+      usernames.add(allUsers[i].username);
+    }
+    return usernames;
+  }
+
+  User getUserFromName(String name) {
+    List<User> allUsers = getUserlist();
+    for (var i = 0; i < allUsers.length; i++) {
+      if (allUsers[i].username == name) {
+        return allUsers[i];
+      }
+    }
+    return null;
+  }
+
   void generateUserList() {
     userlist = new List<User>();
-    userlist.add(new User("user1", "password1", false, null));
-    userlist.add(new User("user2", "password2", false, null));
-    userlist.add(new User("admin", "admin", true, null));
+    List<Book> borrowedBooks = new List<Book>();
+    if (booklist == null) generateBooklist();
+    borrowedBooks.add(booklist[2]);
+    borrowedBooks.add(booklist[5]);
+    borrowedBooks.add(booklist[8]);
+    borrowedBooks.add(booklist[14]);
+    borrowedBooks.add(booklist[67]);
+
+    userlist.add(new User("user1", "password1", false, borrowedBooks,
+        "User1Email@email.com", "0699 111111111"));
+    booklist[2].setUser(userlist[0]);
+    booklist[5].setUser(userlist[0]);
+    booklist[8].setUser(userlist[0]);
+    booklist[14].setUser(userlist[0]);
+    booklist[67].setUser(userlist[0]);
+    List<Book> borrowedBooks2 = new List<Book>();
+    borrowedBooks2.add(booklist[15]);
+    borrowedBooks2.add(booklist[82]);
+    borrowedBooks2.add(booklist[352]);
+
+    userlist.add(new User("user2", "password2", false, borrowedBooks2,
+        "User2Email@email.com", "0699 222222222"));
+    booklist[15].setUser(userlist[1]);
+    booklist[82].setUser(userlist[1]);
+    booklist[352].setUser(userlist[1]);
+    userlist.add(new User("admin", "admin", true, null, "AdminEmail@email.com",
+        "0699 1919191919"));
   }
 
   bool checkLogin(String username, String password) {
@@ -76,6 +111,54 @@ class Methods {
   void addShelf(String shelf) {
     if (shelflist == null) generateShelfList();
     shelflist.add(shelf);
+  }
+
+  void returnBooklist(List<Book> borrowedbooks) {
+    for (Book book in borrowedbooks) {
+      book.setAvailable = true;
+    }
+  }
+
+  void returnBook(Book book) {
+    if (userlist == null) generateUserList();
+    for (User user in userlist) {
+      if (user.getBorrowedbooks.contains(book)) {
+        user.getBorrowedbooks.remove(book);
+        book.setAvailable = true;
+      }
+    }
+  }
+
+  List<String> getAllCategories() {
+    List<Book> allBooks = getBooklist();
+    List<String> uniqueCategories;
+    var seen = Set<String>();
+    List<String> allCategories = ["internet".toLowerCase()];
+    for (var i = 0; i < allBooks.length; i++) {
+      List<String> bookCategories = allBooks[i]
+          .categories
+          .toString()
+          .trim()
+          .replaceAll("[", "")
+          .replaceAll("]", "")
+          .toLowerCase()
+          .split(",");
+      for (var i = 0; i < bookCategories.length; i++) {
+        if (bookCategories[i].isNotEmpty) {
+          allCategories.add(bookCategories[i].trim());
+        }
+      }
+    }
+    uniqueCategories = allCategories
+        .where((category) => seen.add(category.toLowerCase()))
+        .toList();
+    uniqueCategories.sort((a, b) => a.toString().compareTo(b.toString()));
+    int shelf = "a".codeUnitAt(0);
+    for (var i = 0; i < 22; i++) {
+      uniqueCategories.add("shelf " + String.fromCharCode(shelf));
+      shelf++;
+    }
+    return uniqueCategories;
   }
 
   void generateBooklist() {
@@ -120,6 +203,8 @@ class Methods {
       "publishedDate": "2011-06-03T00:00:00.000-0700",
       "thumbnailUrl":
           "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/adzic.jpg",
+      "longDescription":
+          "When it comes to mobile apps, Android can do almost anything   and with this book, so can you! Android runs on mobile devices ranging from smart phones to tablets to countless special-purpose gadgets. It's the broadest mobile platform available.    Android in Action, Second Edition is a comprehensive tutorial for Android developers. Taking you far beyond \"Hello Android,\" this fast-paced book puts you in the driver's seat as you learn important architectural concepts and implementation strategies. You'll master the SDK, build WebKit apps using HTML 5, and even learn to extend or replace Android's built-in features by building useful and intriguing examples. ",
       "status": "PUBLISH",
       "authors": ["Gojko Adzic"],
       "categories": ["Software Engineering"]
@@ -6256,6 +6341,15 @@ class Methods {
           shelf++;
         }
       }
+
+      booklist[2].setAvailable = false;
+      booklist[5].setAvailable = false;
+      booklist[8].setAvailable = false;
+      booklist[14].setAvailable = false;
+      booklist[67].setAvailable = false;
+      booklist[15].setAvailable = false;
+      booklist[82].setAvailable = false;
+      booklist[352].setAvailable = false;
     }
   }
 }
