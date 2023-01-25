@@ -6,10 +6,23 @@ import 'book.dart';
 class User {
   String username;
   String password;
+  String email;
+  String phoneNumber;
   bool isAdmin;
   List<Book> borrowedbooks;
+  
+
+  User(this.username, this.password, this.isAdmin, this.borrowedbooks,
+      this.email, this.phoneNumber);
+
   String get getUsername => this.username;
-  User(this.username, this.password, this.isAdmin, this.borrowedbooks);
+  get getEmail => this.email;
+
+  set setEmail(email) => this.email = email;
+
+  get getPhoneNumber => this.phoneNumber;
+
+  set setPhoneNumber(phoneNumber) => this.phoneNumber = phoneNumber;
   set setUsername(String username) => this.username = username;
 
   get getPassword => this.password;

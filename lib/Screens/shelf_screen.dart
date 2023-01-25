@@ -103,10 +103,13 @@ class _ShelfState extends State<Shelf> {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Empty_book.jpg/1024px-Empty_book.jpg");
       }
     }
-
+    Drawer drawer =
+        (m.getCurrentUser() != null && m.getCurrentUser().getIsAdmin)
+            ? Design.adminDrawer(context, m)
+            : Design.standartDrawer(context, m);
     if (m.getCurrentUser() != null && m.getCurrentUser().getIsAdmin) {
       return Scaffold(
-          drawer: Design.standartDrawer(context, m),
+          drawer: drawer,
           appBar: Design.standartAppBar(context, m),
           floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
@@ -165,7 +168,7 @@ class _ShelfState extends State<Shelf> {
     }
 
     return Scaffold(
-        drawer: Design.standartDrawer(context, m),
+        drawer: drawer,
         appBar: Design.standartAppBar(context, m),
         body: Center(
             child: Container(

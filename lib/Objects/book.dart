@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:library_management_system/Objects/user.dart';
 
 /*
 {
@@ -31,6 +32,7 @@ class Book {
   List<dynamic> authors;
   List<dynamic> categories;
   bool available;
+  User user;
 
   Book(
       this.id,
@@ -49,7 +51,7 @@ class Book {
 
   Book.fromJson(Map<String, dynamic> json) {
     this.id = json["id"];
-    this.pagecount = json["pagecount"];
+    this.pagecount = json["pageCount"];
     this.title = json["title"];
     this.isbn = json["isbn"];
     this.thumbnailUrl = json["thumbnailUrl"];
@@ -120,4 +122,9 @@ class Book {
 
   set setAvailable(bool available) => this.available = available;
 
+  get getUser => this.user;
+
+  void setUser(User userlist) {
+    this.user = userlist;
+  }
 }
