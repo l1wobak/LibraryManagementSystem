@@ -183,14 +183,6 @@ class Design {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('My books'),
-            onTap: () {
-              Navigator.pushNamed(context, '/booklist',
-                  arguments: {'methods': m});
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.login),
             title: Text(logintext),
             onTap: () {
